@@ -1,3 +1,38 @@
 {
-  "extends": "next/core-web-vitals"
+    "env": {
+        "browser": true,
+        "es2021": true
+    },
+    "extends": [
+        "eslint:recommended",
+        "plugin:react/recommended",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:tailwindcss/recommended"
+    ],
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true
+        },
+        "project": "./tsconfig.json",
+        "ecmaVersion": 13,
+        "sourceType": "module"
+    },
+    "plugins": [
+        "react",
+        "@typescript-eslint",
+        "simple-import-sort",
+        "tailwindcss"
+    ],
+    "rules": {
+        "react/prop-types": "off", //typescriptでチェックしてる 不要
+        "react/react-in-jsx-scope": "off", // めんどうなので除去
+        "simple-import-sort/imports": "error", // import 並び替え
+        "simple-import-sort/exports": "error", // export 並び替え
+        "react/jsx-uses-react": "error",
+        "react/jsx-uses-vars": "error",
+        "tailwindcss/classnames-order": "warn",
+        "tailwindcss/no-custom-classname": "warn",
+        "tailwindcss/no-contradicting-classname": "error"
+    }
 }
