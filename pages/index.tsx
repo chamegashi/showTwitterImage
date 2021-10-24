@@ -1,9 +1,29 @@
 import type { NextPage } from "next";
 import Head from "next/head";
+import { useEffect, useState } from "react";
 
 import Card from "../components/Card";
+import { Content, GetContentsData } from "./api/api";
 
 const Home: NextPage = () => {
+  const [users, setUsers] = useState<string[]>([""]);
+  const [user, setUser] = useState<string>("");
+  const [contents, setContents] = useState<Content[]>([]);
+  const { loading, getFn, error, response } = GetContentsData();
+
+  useEffect(() => {
+    getFn("papaiaMK2");
+  }, []);
+
+  useEffect(() => {
+    if (!response) {
+      return;
+    }
+
+    setContents(response.data);
+    console.log(response.data);
+  }, [response]);
+
   const testList = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
   return (
