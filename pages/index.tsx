@@ -24,8 +24,6 @@ const Home: NextPage = () => {
     console.log(response.data);
   }, [response]);
 
-  const testList = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-
   return (
     <div className="text-white bg-gray-700">
       <Head>
@@ -38,11 +36,15 @@ const Home: NextPage = () => {
         <p className="py-4 text-2xl text-center">Twitter 画像だけ</p>
       </div>
 
-      <div className="flex flex-wrap justify-center content-start mt-4">
-        {testList.map((num) => {
-          return <Card text="testetset" key={num} />;
-        })}
-      </div>
+      {loading && <p>Loading</p>}
+
+      {!loading && (
+        <div className="flex flex-wrap justify-center content-start mt-4">
+          {contents.map((content) => {
+            return <Card content={content} key={content.created} />;
+          })}
+        </div>
+      )}
     </div>
   );
 };

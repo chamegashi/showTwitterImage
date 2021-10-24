@@ -13,6 +13,7 @@ export type Content = {
   image_url: string;
   tweet_url: string;
   created: string;
+  profile_image_url: string;
 };
 
 export const GetContentsData = () => {
