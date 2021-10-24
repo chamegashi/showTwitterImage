@@ -1,12 +1,10 @@
-import type { NextPage } from 'next'
-import Head from 'next/head'
+import type { NextPage } from "next";
+import Head from "next/head";
 
-import Card from '../components/Card'
+import Card from "../components/Card";
 
 const Home: NextPage = () => {
-
-
-  const testList = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+  const testList = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
   return (
     <div className="text-white bg-gray-700">
@@ -21,17 +19,12 @@ const Home: NextPage = () => {
       </div>
 
       <div className="flex flex-wrap justify-center content-start mt-4">
-
         {testList.map((num) => {
-          return(
-            <Card text="testetset" key={num} />
-          )
+          return <Card text="testetset" key={num} />;
         })}
-
       </div>
-
     </div>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;
