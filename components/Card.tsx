@@ -1,3 +1,4 @@
+import dateFormat, { masks } from "dateformat";
 import Image from "next/image";
 import { VFC } from "react";
 
@@ -8,6 +9,9 @@ interface Props {
 }
 
 const Card: VFC<Props> = ({ content }) => {
+  masks.createTime = 'm"月"d"日" hh:mm:ss';
+  const created = dateFormat(new Date(content.created), "createTime");
+
   return (
     <div className="p-3 m-3 w-80 text-white rounded border border-white">
       <div className="flex">
@@ -21,7 +25,7 @@ const Card: VFC<Props> = ({ content }) => {
         </div>
         <div className="ml-2">
           <p className="text-lg">{content.user}</p>
-          <p className="text-sm text-gray-400">{content.created}</p>
+          <p className="text-sm text-gray-400">{created}</p>
         </div>
       </div>
 

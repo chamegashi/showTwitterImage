@@ -1,5 +1,7 @@
+import { CogIcon } from "@heroicons/react/solid";
 import type { NextPage } from "next";
 import Head from "next/head";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 import Card from "../components/Card";
@@ -12,7 +14,7 @@ const Home: NextPage = () => {
   const { loading, getFn, error, response } = GetContentsData();
 
   useEffect(() => {
-    getFn("papaiaMK2");
+    getFn("papaiaMK2,kondou0809");
   }, []);
 
   useEffect(() => {
@@ -21,7 +23,6 @@ const Home: NextPage = () => {
     }
 
     setContents(response.data);
-    console.log(response.data);
   }, [response]);
 
   return (
@@ -41,10 +42,20 @@ const Home: NextPage = () => {
       {!loading && (
         <div className="flex flex-wrap justify-center content-start mt-4">
           {contents.map((content) => {
-            return <Card content={content} key={content.created} />;
+            return <Card content={content} key={content.image_url} />;
           })}
         </div>
       )}
+
+      {/* <div className="fixed bottom-0 right-0 m-3">
+        <button className="rounded h-12 w-12">検索</button>
+      </div> */}
+
+      <div className="fixed bottom-0 left-0 p-1 m-4 bg-gray-400 rounded-full shadow-xl">
+        <Link href="/config">
+          <CogIcon className="w-10 h-10 rounded" />
+        </Link>
+      </div>
     </div>
   );
 };

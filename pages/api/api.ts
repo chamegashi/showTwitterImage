@@ -24,7 +24,7 @@ export const GetContentsData = () => {
   const getFn = useCallback(async (keyword: string) => {
     setLoading(true);
 
-    const url = `${hostname}/api/getData?users=` + keyword;
+    const url = `${hostname}api/getData?users=` + keyword;
 
     await axios
       .get<ContentsResponse>(url)
