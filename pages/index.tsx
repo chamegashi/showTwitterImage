@@ -3,17 +3,19 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 
 import Card from "../components/Card";
+import { User } from "../shared/types";
 import { Content, GetContentsData } from "./api/api";
 
 const Home: NextPage = () => {
-  const [users, setUsers] = useState<string[]>([""]);
-  const [user, setUser] = useState<string>("");
+  const [users, setUsers] = useState<User[]>([]);
   const [contents, setContents] = useState<Content[]>([]);
   const { loading, getFn, error, response } = GetContentsData();
 
   useEffect(() => {
+    console.log(uuidv4());
     getFn("papaiaMK2,kondou0809");
   }, []);
 

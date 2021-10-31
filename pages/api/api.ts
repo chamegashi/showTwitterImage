@@ -3,8 +3,9 @@ import { useCallback, useState } from "react";
 
 const hostname = "https://twimagebackend.herokuapp.com/";
 
-export type ContentsResponse = {
-  data: Content[];
+export type User = {
+  userName: string;
+  id: string;
 };
 
 export type Content = {
@@ -14,6 +15,10 @@ export type Content = {
   tweet_url: string;
   created: string;
   profile_image_url: string;
+};
+
+export type ContentsResponse = {
+  data: Content[];
 };
 
 export const GetContentsData = () => {

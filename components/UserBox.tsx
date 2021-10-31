@@ -1,22 +1,31 @@
 import { XIcon } from "@heroicons/react/solid";
 import { FormEvent, useState, VFC } from "react";
 
+import { User } from "../shared/types";
+
 interface Props {
-  index: number;
-  deleteFunc: (user: string) => void;
-  changeFunc: (index: number, userName: string) => void;
+  id: string;
+  deleteFunc: (user: User) => void;
+  changeFunc: (userName: User) => void;
 }
 
-const UserBox: VFC<Props> = ({ index, deleteFunc, changeFunc }) => {
+const UserBox: VFC<Props> = ({ id, deleteFunc, changeFunc }) => {
   const [user, setUser] = useState<string>("");
+  const [boxId, setBoxId] = useState<string>(id);
 
   const changeUser = (e: FormEvent<HTMLInputElement>) => {
     setUser(e.currentTarget.value);
-    changeFunc(index, e.currentTarget.value);
+    changeFunc({
+      userName: e.currentTarget.value,
+      id: boxId,
+    });
   };
 
   const clikedDelete = () => {
-    deleteFunc(user);
+    deleteFunc({
+      userName: user,
+      id: boxId,
+    });
   };
 
   return (

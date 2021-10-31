@@ -1,14 +1,11 @@
 import { RewindIcon } from "@heroicons/react/solid";
 import type { NextPage } from "next";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 
 import UserBox from "../components/UserBox";
-
-interface User {
-  user: string;
-  id: string;
-}
+import { User } from "../shared/types";
 
 const Config: NextPage = () => {
   const [users, setUsers] = useState<User[]>([]);
@@ -24,21 +21,21 @@ const Config: NextPage = () => {
   const addUser = () => {
     const newUsers = users.concat();
     newUsers.push({
-      user: "",
-      id: "s",
+      userName: "",
+      id: uuidv4(),
     });
     setUsers(newUsers);
   };
 
-  const deleteUser = (userName: string) => {
-    console.log(users);
-    const newUsers = users.filter((user) => user.user !== userName);
+  const deleteUser = (deleteUser: User) => {
+    const newUsers = users.filter((user) => user.id !== deleteUser.id);
     setUsers(newUsers);
   };
 
-  const changeUser = (index: number, userName: string) => {
-    const newUsers = users.concat();
-    newUsers[index].user = userName;
+  const changeUser = (changeUser: User) => {
+    const newUsers = users.map((user) => {
+      return user.id === changeUser.id ? changeUser : user;
+    });
     setUsers(newUsers);
   };
 
@@ -52,11 +49,11 @@ const Config: NextPage = () => {
         <p className="py-4 text-xl text-center">見たいユーザの変更</p>
 
         <div className="">
-          {users.map((user, index) => {
+          {users.map((user) => {
             return (
               <UserBox
                 key={user.id}
-                index={index}
+                id={user.id}
                 changeFunc={changeUser}
                 deleteFunc={deleteUser}
               />
