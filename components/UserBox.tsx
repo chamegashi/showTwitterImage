@@ -4,14 +4,14 @@ import { FormEvent, useState, VFC } from "react";
 import { User } from "../shared/types";
 
 interface Props {
-  id: string;
+  inputUser: User;
   deleteFunc: (user: User) => void;
   changeFunc: (userName: User) => void;
 }
 
-const UserBox: VFC<Props> = ({ id, deleteFunc, changeFunc }) => {
-  const [user, setUser] = useState<string>("");
-  const [boxId, setBoxId] = useState<string>(id);
+const UserBox: VFC<Props> = ({ inputUser, deleteFunc, changeFunc }) => {
+  const [user, setUser] = useState<string>(inputUser.userName);
+  const [boxId, setBoxId] = useState<string>(inputUser.id);
 
   const changeUser = (e: FormEvent<HTMLInputElement>) => {
     setUser(e.currentTarget.value);

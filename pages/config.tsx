@@ -1,7 +1,7 @@
 import { RewindIcon } from "@heroicons/react/solid";
 import type { NextPage } from "next";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import store from "store";
 import { v4 as uuidv4 } from "uuid";
 
@@ -11,6 +11,11 @@ import { User } from "../shared/types";
 const Config: NextPage = () => {
   const [users, setUsers] = useState<User[]>([]);
   const router = useRouter();
+
+  useEffect(() => {
+    console.log(store.get("users"));
+    setUsers(store.get("users"));
+  }, []);
 
   const removeTop = () => {
     store.set("users", users);
@@ -39,7 +44,7 @@ const Config: NextPage = () => {
   };
 
   return (
-    <div className="text-white bg-gray-700">
+    <div className="h-screen text-white bg-gray-700">
       <div className="">
         <p className="py-4 text-2xl text-center">Twitter 画像だけ</p>
       </div>
@@ -52,7 +57,7 @@ const Config: NextPage = () => {
             return (
               <UserBox
                 key={user.id}
-                id={user.id}
+                inputUser={user}
                 changeFunc={changeUser}
                 deleteFunc={deleteUser}
               />
