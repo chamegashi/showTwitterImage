@@ -3,6 +3,7 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import store from "store";
 import { v4 as uuidv4 } from "uuid";
 
 import Card from "../components/Card";
@@ -15,7 +16,7 @@ const Home: NextPage = () => {
   const { loading, getFn, error, response } = GetContentsData();
 
   useEffect(() => {
-    console.log(uuidv4());
+    console.log(store.get("users"));
     getFn("papaiaMK2,kondou0809");
   }, []);
 

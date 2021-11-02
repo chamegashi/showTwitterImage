@@ -1,7 +1,8 @@
 import { RewindIcon } from "@heroicons/react/solid";
 import type { NextPage } from "next";
-import Link from "next/link";
+import { useRouter } from "next/router";
 import { useState } from "react";
+import store from "store";
 import { v4 as uuidv4 } from "uuid";
 
 import UserBox from "../components/UserBox";
@@ -9,14 +10,12 @@ import { User } from "../shared/types";
 
 const Config: NextPage = () => {
   const [users, setUsers] = useState<User[]>([]);
+  const router = useRouter();
 
-  // useEffect(() => {
-  //   const localUsersString: string | null = localStorage.getItem("users");
-  //   if (localUsersString) {
-  //     const localUsers = localUsersString?.split(",");
-  //     setUsers(localUsers);
-  //   }
-  // }, []);
+  const removeTop = () => {
+    store.set("users", users);
+    router.push("/");
+  };
 
   const addUser = () => {
     const newUsers = users.concat();
@@ -72,9 +71,7 @@ const Config: NextPage = () => {
       </div>
 
       <div className="fixed bottom-0 left-0 p-1 m-4 bg-gray-400 rounded-full shadow-xl">
-        <Link href="/">
-          <RewindIcon className="w-10 h-10 rounded" />
-        </Link>
+        <RewindIcon onClick={removeTop} className="w-10 h-10 rounded" />
       </div>
     </div>
   );
