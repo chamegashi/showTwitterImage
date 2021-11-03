@@ -2,6 +2,7 @@ import { RewindIcon } from "@heroicons/react/solid";
 import type { NextPage } from "next";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import Switch from "react-switch";
 import store from "store";
 import { v4 as uuidv4 } from "uuid";
 
@@ -10,16 +11,26 @@ import { User } from "../shared/types";
 
 const Config: NextPage = () => {
   const [users, setUsers] = useState<User[]>([]);
+  const [RTChecked, setRTChecked] = useState<boolean>(false);
   const router = useRouter();
 
   useEffect(() => {
-    console.log(store.get("users"));
     setUsers(store.get("users"));
+    setRTChecked(store.get("RT"));
   }, []);
 
   const removeTop = () => {
-    store.set("users", users);
+    saveLocal();
     router.push("/");
+  };
+
+  const saveLocal = () => {
+    store.set("users", users);
+    store.set("RT", RTChecked);
+  };
+
+  const toggleRTCecked = () => {
+    setRTChecked(!RTChecked);
   };
 
   const addUser = () => {
@@ -72,6 +83,26 @@ const Config: NextPage = () => {
           >
             追加
           </button>
+        </div>
+      </div>
+
+      <div className="py-4 mt-8">
+        <div className="">
+          <p className="text-xl text-center">設定</p>
+          <div className="flex justify-center">
+            <label
+              htmlFor="toogleA"
+              className="flex items-center mt-4 cursor-pointer"
+            >
+              <Switch onChange={toggleRTCecked} checked={RTChecked} />
+              <div
+                className="ml-3 font-medium text-white"
+                onClick={toggleRTCecked}
+              >
+                RT も表示する
+              </div>
+            </label>
+          </div>
         </div>
       </div>
 

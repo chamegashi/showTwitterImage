@@ -3,6 +3,7 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import ClimbingBoxLoader from "react-spinners/ClimbingBoxLoader";
 import store from "store";
 
 import Card from "../components/Card";
@@ -12,10 +13,13 @@ import { Content, GetContentsData } from "./api/api";
 const Home: NextPage = () => {
   const [users, setUsers] = useState<User[]>([]);
   const [contents, setContents] = useState<Content[]>([]);
+  const [isShowRT, setIsShowRT] = useState<boolean>(false);
   const { loading, getFn, error, response } = GetContentsData();
 
   useEffect(() => {
     setUsers(store.get("users"));
+    setIsShowRT(store.get("RT"));
+
     let query = "";
     store.get("users").forEach((user: User) => {
       query = query + user.userName + ",";
@@ -43,7 +47,11 @@ const Home: NextPage = () => {
         <p className="py-4 text-2xl text-center">Twitter 画像だけ</p>
       </div>
 
-      {loading && <p className="h-screen">Loading</p>}
+      {loading && (
+        <div className="mt-28 h-screen text-center text-white">
+          <ClimbingBoxLoader color={"white"} />
+        </div>
+      )}
 
       {!loading && (
         <div className="flex flex-wrap justify-center content-start mt-4">
